@@ -12,8 +12,8 @@ POST http://localhost:3000/auth/sigin
 content-type: application/json
 
 {
-    "email": "qqqqqqqqqqqq@test.com",
-    "password": "password123"
+    "email": "asf@test.com",
+    "password": "password12"
 }
 
 ###get user with a particular id
@@ -32,3 +32,9 @@ content-type: application/json
 {
     "email":"da@test.com"
 }
+
+###set a color
+GET http://localhost:3000/auth/colors/purple
+
+###set a color
+GET http://localhost:3000/auth/colors

@@ -20,6 +20,7 @@ export class SerializeInterceptor implements NestInterceptor {
         return next.handle().pipe(
             map((data: any) => {
                 return plainToInstance(this.dto, data, {
+                    //excludes not important values
                     excludeExtraneousValues: true
                 });
             })
