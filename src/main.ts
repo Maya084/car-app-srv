@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //set session
   app.use(cookieSession({
     keys: ['9ergkje5rnjgk1']
   }));

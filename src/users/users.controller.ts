@@ -19,11 +19,13 @@ export class UsersController {
 
     @Get('/colors/:color')
     setColor(@Param('color') color: string, @Session() session: any){
+        //set session value
         session.color = color;
     }
 
     @Get('/colors')
     getColor(@Session() session: any){
+        //get session value
         return session.color;
     }
 
