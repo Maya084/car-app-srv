@@ -1,27 +1,26 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  //set session
-  app.use(cookieSession({
-    keys: ['9ergkje5rnjgk1']
-  }));
+  // //set session
+  // app.use(cookieSession({
+  //   keys: ['9ergkje5rnjgk1']
+  // }));
 
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true //added properties will be deleted if not needed
-  }));
+  // app.useGlobalPipes(new ValidationPipe({
+  //   whitelist: true //added properties will be deleted if not needed
+  // }));
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Cars example')
+    .setDescription('nestjs course project')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('cars')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
