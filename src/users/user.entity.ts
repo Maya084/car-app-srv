@@ -1,7 +1,8 @@
-import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Report } from "../reports/report.entity";
 
 @Entity()
+@Unique(['username', 'email'])
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,6 +12,15 @@ export class User {
 
     @Column()
     password: string;
+
+    @Column()
+    username: string;
+
+    @Column()
+    name: string;
+
+    @Column()
+    lastName: string;
 
     @Column({ default: true })
     admin: boolean;

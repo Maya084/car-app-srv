@@ -4,6 +4,16 @@ export class UserDto {
     @Expose()
     id: number;
     
+    // @Expose()
+    // email: string;
+
     @Expose()
-    email: string;
+    name: string;
+
+    @Expose()
+    lastName: string;
+    
+    @Expose()
+    username: string;
 }
+
