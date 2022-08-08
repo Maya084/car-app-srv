@@ -46,4 +46,18 @@ export class ReportsService {
             .limit(3)
             .getRawOne()
     }
+
+    async getAllReports() {
+        return this.repo.find({
+            select: {
+                price: true,
+                make: true,
+                model: true,
+                year: true,
+                lng: true,
+                lat: true,
+                mileage: true
+            }
+        });
+    }
 }
