@@ -49,6 +49,9 @@ export class ReportsService {
 
     async getAllReports() {
         return this.repo.find({
+            relations: {
+                user: true
+            },
             select: {
                 price: true,
                 make: true,
@@ -56,7 +59,13 @@ export class ReportsService {
                 year: true,
                 lng: true,
                 lat: true,
-                mileage: true
+                mileage: true,
+                user: {
+                    id: true,
+                    username: true,
+                    name: true,
+                    lastName: true
+                }
             }
         });
     }
