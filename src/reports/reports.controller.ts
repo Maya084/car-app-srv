@@ -14,7 +14,6 @@ import { ReportsService } from './reports.service';
 export class ReportsController {
 
     constructor(private reportsService: ReportsService) {
-
     }
 
     @Post()

@@ -6,6 +6,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 
 @Injectable()
 export class UsersService {
+
     constructor(@InjectRepository(User) private repo: Repository<User>) { }
 
     create(data: CreateUserDto) {
@@ -21,6 +22,10 @@ export class UsersService {
 
     find(email: string) {
         return this.repo.findBy({ email });
+    }
+
+    getAllUsers() {
+        return this.repo.find();
     }
 
     async update(id: number, attrs: Partial<User>) {

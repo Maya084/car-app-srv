@@ -60,9 +60,15 @@ export class UsersController {
         return user;
     }
 
+    // @Get()
+    // findAllUsersWithEmail(@Query('email') email: string) {
+    //     return this.userService.find(email);
+    // }
+
     @Get()
-    findAllUsers(@Query('email') email: string) {
-        return this.userService.find(email);
+    @UseGuards(AuthGuard)
+    getAllUsers() {
+        return this.userService.getAllUsers();
     }
 
     @Delete('/:id')
