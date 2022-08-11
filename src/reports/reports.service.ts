@@ -37,8 +37,8 @@ export class ReportsService {
             .select('AVG(price)', 'price')
             .where('make = :make', { make: estimateDto.make })//sql injection protection
             .andWhere('model = :model', { model: estimateDto.model })
-            .andWhere('lng - :lng BETWEEN -5 AND 5', { lng: estimateDto.lng ?? 0})
-            .andWhere('lat - :lat BETWEEN -5 AND 5', { lat: estimateDto.lat ?? 0})
+            .andWhere('lng - :lng BETWEEN -5 AND 5', { lng: estimateDto.lng ?? 0 })
+            .andWhere('lat - :lat BETWEEN -5 AND 5', { lat: estimateDto.lat ?? 0 })
             .andWhere('year - :year BETWEEN -3 AND 3', { year: estimateDto.year })
             .andWhere('approved IS TRUE')
             .orderBy('mileage - :mileage', 'DESC')
@@ -68,5 +68,29 @@ export class ReportsService {
                 }
             }
         });
+    }
+
+    async reportsForUser(userId: string) {
+        return this.repo.find({
+            relations: {
+                user: true
+            },
+            where: {
+                user: {
+                    id: parseInt(userId)
+                }
+            },
+            select: {
+                id: true,
+                price: true,
+                make: true,
+                model: true,
+                year: true,
+                lng: true,
+                lat: true,
+                mileage: true,
+                user: {}
+            },
+        })
     }
 }

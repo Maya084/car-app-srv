@@ -1,7 +1,7 @@
 import {
     Body, Controller, Delete, Get,
     NotFoundException, Param, Patch,
-    Post, Query, Session, UseGuards
+    Post, Session, UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../guards/auth.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
@@ -47,6 +47,18 @@ export class UsersController {
     signOut(@Session() session: any) {
         session.userId = null;
     }
+
+    // @Post('/upload')
+    // @UseInterceptors(FileInterceptor('file'))
+    // @ApiBody({
+    //     schema: {
+    //         type: 'string',
+    //         format: 'binary',
+    //     },
+    // })
+    // uploadFile(@UploadedFile() file: Express.Multer.File) {
+    //     console.log(file);
+    // }
 
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     @Get('/:id')

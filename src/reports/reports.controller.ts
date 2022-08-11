@@ -41,4 +41,9 @@ export class ReportsController {
     getEstimate(@Query() query: GetEstimateDto) {
         return this.reportsService.createEstimate(query);
     }
+
+    @Get('/user/:id')
+    reportsForUser(@Param('id') id: string) {
+        return this.reportsService.reportsForUser(id);
+    }
 }
