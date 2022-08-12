@@ -8,4 +8,16 @@ export class UpdateUserDto {
     @IsString()
     @IsOptional()
     password: string;
+
+    @IsString()
+    @IsOptional()
+    name: string;
+
+    @IsString()
+    @IsOptional()
+    lastName: string;
+
+    @IsString()
+    @IsOptional()
+    profileImage: string;
 }
