@@ -1,8 +1,10 @@
 import {
     Body, Controller, Delete, Get,
     NotFoundException, Param, Patch,
-    Post, Session, UseGuards,
+    Post, Session, UploadedFile, UseGuards, UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multer, { diskStorage } from 'multer';
 import { AuthGuard } from '../guards/auth.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
@@ -13,6 +15,22 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
+import { v4 as uuidv4 } from 'uuid';
+import path = require('path');
+import { join } from 'path';
+import { Observable, of } from 'rxjs';
+
+const storage = {
+    storage: diskStorage({
+        destination: './uploads/profileImages',
+        filename: (req, file, cb) => {
+            const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+            const extension: string = path.parse(file.originalname).ext;
+
+            cb(null, `${filename}${extension}`)
+        }
+    })
+};
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -48,17 +66,12 @@ export class UsersController {
         session.userId = null;
     }
 
-    // @Post('/upload')
-    // @UseInterceptors(FileInterceptor('file'))
-    // @ApiBody({
-    //     schema: {
-    //         type: 'string',
-    //         format: 'binary',
-    //     },
-    // })
-    // uploadFile(@UploadedFile() file: Express.Multer.File) {
-    //     console.log(file);
-    // }
+    @Post('/upload')
+    @UseInterceptors(FileInterceptor('file', storage))
+    uploadFile(@UploadedFile() file: Express.Multer.File, @Session() session: any): Observable<Object> {
+        console.log(session.userId);
+        return of({ imagePath: file.filename });
+    }
 
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     @Get('/:id')

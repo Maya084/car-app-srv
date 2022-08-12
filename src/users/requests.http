@@ -4,7 +4,10 @@ content-type: application/json
 
 {
     "email": "admin@test.com",
-    "password": "123"
+    "password": "pass123",
+    "username": "usernameTest",
+    "name": "FirstName",
+    "lastName": "LastName"
 }
 
 ###log in user
