@@ -1,7 +1,7 @@
 import {
     Body, Controller, Delete, Get,
     NotFoundException, Param, Patch,
-    Post, Session, UploadedFile, UseGuards, UseInterceptors,
+    Post, Res, Session, UploadedFile, UseGuards, UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -18,7 +18,7 @@ import { UsersService } from './users.service';
 import { v4 as uuidv4 } from 'uuid';
 import path = require('path');
 import { join } from 'path';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 const storage = {
     storage: diskStorage({
@@ -71,6 +71,12 @@ export class UsersController {
     @UseInterceptors(FileInterceptor('file', storage))
     uploadFile(@UploadedFile() file: Express.Multer.File, @Session() session: any) {
         return this.userService.update(session.userId, { profileImage: file.filename });
+    }
+
+    @Get('/upload/:image')
+    @UseGuards(AuthGuard)
+    findProfileImage(@Param('image') image: string, @Res() res) {
+        return of(res.sendFile(join(process.cwd(), '/uploads/profileImages/' + image)));
     }
 
     // @UseInterceptors(new SerializeInterceptor(UserDto))
