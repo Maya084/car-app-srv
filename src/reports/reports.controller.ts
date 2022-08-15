@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { AdminGuard } from '../guards/admin.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
@@ -45,5 +45,11 @@ export class ReportsController {
     @Get('/user/:id')
     reportsForUser(@Param('id') id: string) {
         return this.reportsService.reportsForUser(id);
+    }
+
+    @Delete('/:id')
+    @UseGuards(AuthGuard)
+    deleteReport(@Param('id') id: string) {
+        return this.reportsService.deleteReport(parseInt(id));
     }
 }

@@ -93,4 +93,14 @@ export class ReportsService {
             },
         })
     }
+
+    async deleteReport(id: number) {
+        const report = await this.repo.findBy({ id });
+
+        if (!report) {
+            throw new NotFoundException("report not found");
+        }
+
+        return this.repo.remove(report);
+    }
 }
